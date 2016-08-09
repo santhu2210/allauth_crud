@@ -1,0 +1,40 @@
+
+{% if query_results|length > 0 %}
+
+<table>>
+	<thead>>
+		<tr>
+			<th>Name: </th>
+			<th>ID: </th>
+			<th>Email: </th>
+			<th>Gender: </th>
+			<th>Dept: </th>
+			<th>Exp: </th>
+			<th>Skills: </th>
+			<th>Feedback: </th>
+		</tr>
+
+	</thead>
+	<tbody>
+	{% for emp in query_results %}
+	<tr>
+
+		<td>{{emp.emp_name}}</td>
+		<td>{{emp.emp_id}}</td>
+		<td>{{emp.email_id}}</td>
+		<td>{{emp.gen}}</td>
+		<td>{{emp.dept}}</td>
+		<td>{{emp.exp}}</td>
+		<td>{{emp.skills}}</td>
+		<td>{{emp.fdbk}}</td>
+
+	</tr>
+	{% endfor %}
+	<td><a href="/insert/">Insert</a></td>
+
+	</tbody>
+</table>
+{% else %}
+<span>No Query</span>
+{% endif %}
+
