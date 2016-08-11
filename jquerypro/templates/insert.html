@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+</head>
+<body>
+          <div>  
+    <div class="line"><label for="name">Name : </label><input type="text" id="name1" /></div>                
+
+                <div class="line"><label for="email">Email : </label><input type="text" id="email1"  /></div>               
+
+                <div class="line"><label for="locat">Locat : </label><input type="text" id="locat1" /> </div> 
+</div>
+
+<!-- <div id = "disp">  display content </div> -->
+
+
+<br>
+<input type="button" id = "insert" value="Insert" />
+<br>
+<br>
+
+<input type="button" id = "show" value="show" />
+
+<br>
+<div class="line"><label for="locat">Search : </label><input type="text" id="search1" /> </div> 
+
+
+<script>
+
+function getCookie(name){
+    var cookieValue = null;
+    if (document.cookie && document.cookie!=''){
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i<cookies.length;i++){
+            var cookie = jQuery.trim(cookies[i]);
+        if (cookie.substring(0, name.length+1)==(name + '=')){
+            cookieValue= decodeURIComponent(cookie.substring(name.length+1));
+            break;
+            }
+        }
+    }
+return cookieValue;
+}
+	
+$("#insert").click(function(e){
+
+	e.preventDefault();
+
+	var csrftoken = getCookie('csrftoken');   
+
+	var nm = $('#name1').val();
+	var em = $('#email1').val();
+	var lct = $('#locat1').val();
+
+
+$.ajax({
+	url: window.location.href,
+	method: "POST",
+	data: { csrfmiddlewaretoken : csrftoken, nm1 : nm , em1 : em, lct1 : lct },
+
+	success:  function(json){
+		console.log(json);
+		alert('Hi ' +json['NAM']);
+	},
+
+	error: function(xhr,errmsg,err){
+    	console.log(xhr.status + ": " +xhr.responseText);  // provide a error info.
+    }
+
+});
+
+});
+
+$("#show").click(function(){
+	
+	$.ajax({
+
+		url:"http://127.0.0.1:8000/get-users/",	
+		method: "GET",
+		data: {},
+
+		success: function(json){
+			console.log(json);
+			alert('Your latest inserted details =>   NAME: ' +json['NAM'] +'  EMAIL: ' +json['EMAIL'] +'  LOCATION: ' +json['LOCATION']);
+		}
+
+
+	});
+});
+
+</script>
+<!-- <script>
+$(document).ready(function(){
+    $("button").click(function(){
+        $.get('sam1.txt', function(data, status){
+            alert("Data: " + data + "\nStatus: " + status);
+        });
+    });
+});
+</script> -->
+
+
+</body>
+</html>

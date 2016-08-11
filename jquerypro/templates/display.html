@@ -1,0 +1,26 @@
+
+{% if query_results|length > 0 %}
+
+<table>
+	<thead>
+		<tr>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Location</th>
+		</tr>
+	</thead>
+	<tbody>>
+		{% for student in query_results %}
+		<tr>
+		<td>{{student.Name}}</td>
+		<td>{{student.Email}}</td>
+		<td>{{student.Locat}}</td>
+		</tr>
+		{% endfor %}
+
+	</tbody>
+		
+</table>
+{% else %}
+<span>No Query</span>
+{% endif %}
